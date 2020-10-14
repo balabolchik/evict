@@ -8,14 +8,14 @@ let gessingWord;
 let secretWord = [];
 let results;
 let resultsOfGame = {
-    players : ["oleg","nastya","dima","vika"],
-    score : [1,2,3,4]
+    players : [],
+    score : []
 };
 let letter;
 let letterIsCorrect;
 let listedLetters=[];
 let wordIsGuessed;
-let oneLetterIsEntered;
+let letterIsGuessed;
 
 do {//додає гравців у гру
     numberOfPlayer++;//номерує гравців
@@ -39,18 +39,64 @@ do{
 // -------------------------------------------------------------------------------------------------------------------------
 
     while (!wordIsGuessed){
-
-        while(!wordIsGuessed){
-            letter = prompt(`${secretWord.join('  ')}\nВведіть вашу літеру:`).toUpperCase();
-            
-            for (let i=0; i<gessingWord.length;i++){
-                if (gessingWord[i]===letter){
-                    secretWord[i]=letter;
+        letterIsGuessed=true;
+        while(letterIsGuessed){
+            letter = prompt(`${secretWord.join('  ')}\n${resultsOfGame.players[z]}, введіть вашу літеру:`).toUpperCase();
+            if (letter.length>1||letter.length<1){
+                letter = prompt(`${secretWord.join('  ')}\n${resultsOfGame.players[z]}, введіть одну літеру:`).toUpperCase();
+                letterIsCorrect=false;
+            }else if(listedLetters.indexOf(letter)!==-1){
+                letter = prompt(`${secretWord.join('  ')}\n${resultsOfGame.players[z]}, ця буква вже використовувалася, введіть іншу букву:`).toUpperCase();
+                letterIsCorrect=false;
+            }else{
+                listedLetters.push(letter);
+                if(gessingWord.indexOf(letter)===-1){
+                    resultsOfGame.score[z]-=1;
+                    letterIsGuessed=false;
+                }else{
+                    for (let i=0; i<gessingWord.length;i++){
+                        if (gessingWord[i]===letter){
+                            secretWord[i]=letter;
+                            resultsOfGame.score[z]+=1;
+                            letterIsGuessed=true;
+                        };
+                    };
+                    if(secretWord.indexOf('__')===-1){
+                        wordIsGuessed=true;
+                        letterIsGuessed=false;
+                    };
                 };
+                letterIsCorrect=true;
+
             };
-            
-            if(secretWord.indexOf('__')===-1){
-                wordIsGuessed=true;
+
+            while(!letterIsCorrect){
+                if (letter.length>1||letter.length<1){
+                    letter = prompt(`${secretWord.join('  ')}\n${resultsOfGame.players[z]}, введіть одну літеру:`).toUpperCase();
+                    letterIsCorrect=false;
+                }else if(listedLetters.indexOf(letter)!==-1){
+                    letter = prompt(`${secretWord.join('  ')}\n${resultsOfGame.players[z]}, ця буква вже використовувалася, введіть іншу букву:`).toUpperCase();
+                    letterIsCorrect=false;
+                }else{
+                    listedLetters.push(letter);
+                    if(gessingWord.indexOf(letter)===-1){
+                        resultsOfGame.score[z]-=1;
+                        letterIsGuessed=false;
+                    }else{
+                        for (let i=0; i<gessingWord.length;i++){
+                            if (gessingWord[i]===letter){
+                                secretWord[i]=letter;
+                                resultsOfGame.score[z]+=1;
+                                letterIsGuessed=true;
+                            };
+                        };
+                    };
+                    letterIsCorrect=true;
+                    if(secretWord.indexOf('__')===-1){
+                        wordIsGuessed=true;
+                        letterIsGuessed=false;
+                    };
+                };
             };
         };
 
@@ -72,7 +118,8 @@ do{
     secretWord=[];
     gessingWord=[];
 }while(anotherGame);
-
+alert(score());
+alert(`${resultsOfGame.players[0]}, вітаю! Ви переможець!!!`);
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Результати
@@ -99,77 +146,3 @@ function score(){
     };
     return(results);//повертає результати
 };
-
-
-
-
-
-
-// do {
-    // gessingWord = randomWords[Math.floor(Math.random()*randomWords.length)].toUpperCase().split('');//обирає рандомне слово
-    // console.log(gessingWord);//виводить загадане слово в консоль
-    // for (let i=0; i<gessingWord.length;i++){//створює масив з закритими буквами
-    //     secretWord.push('__');//додає до масиву закриті букви
-    // };//створює масив з закритими буквами
-    // console.log(secretWord.join('  '));//виводить в консоль масив з закритими буквами
-    
-//     do{//гравець вводить літери з клавіатури
-//         // Введення літери --------------------------------------------------------------------------------------------------------
-//         letter = prompt(`${secretWord.join('  ')}\nВведіть вашу літеру:`).toUpperCase();//введення літери
-//         console.log(letter);//виводить літеру в консоль
-//         if (letter.length>1||letter.length<1){//перевіряє чи літера не пуста або не більше одної літери
-//             letterIsCorrect=false;//перевірка на кількість введених літер
-//         } else if (listedLetters.indexOf(letter)!==-1) {
-
-//         }else {//дія, якщо буква одна
-//             letterIsCorrect=true; //присвоює значення вірно якщо буква одна
-//         };//кінець перевірки на кількість літер
-//         while (!letterIsCorrect){
-//             letter = prompt(`${secretWord.join('  ')}\nВведіть одну літеру:`).toUpperCase();
-//             console.log(letter);
-//             if (letter.length>1||letter.length<1){
-//                 oneLetterIsEntered=false
-//             } else {
-//                 oneLetterIsEntered=true
-//             };
-//         };
-
-        
-// // ----------------------------------------------------------------------------------------------------------------------------------
-// // 
-//         // if (listedLetters.indexOf(letter)===-1){
-//         //     listedLetters.push(letter);
-//         //     for (let i=0; i<gessingWord.length; i++){
-//         //         if (gessingWord[i]===letter){
-//         //             resultsOfGame.score[0]+=1;
-//         //             letterIsCorrect = true;
-//         //             secretWord[i]=letter;
-//         //         }
-//         //     };
-//         // } else {
-//         //     letter = prompt(`${secretWord.join('  ')}\nЦя літера вже використовувалася, введіть вашу літеру:`).toUpperCase();
-//         //     console.log(letter);
-//         //     if (letter.length>1||letter.length<1){
-//         //         oneLetterIsEntered=false
-//         //     } else {
-//         //         oneLetterIsEntered=true
-//         //     };
-//         //     while (!oneLetterIsEntered){
-//         //         letter = prompt(`${secretWord.join('  ')}\nВведіть одну літеру:`).toUpperCase();
-//         //         console.log(letter);
-//         //         if (letter.length>1||letter.length<1){
-//         //             oneLetterIsEntered=false
-//         //         } else {
-//         //             oneLetterIsEntered=true
-//         //         };
-//         //     };
-//         // };
-//         console.log(letterIsCorrect);
-//     }while(!wordIsGuessed&&letterIsCorrect);
-
-    
-
-//     secretWord=[];
-//     gessingWord=[];
-//     anotherGame=confirm(`Хочете зіграти ще одну гру?`);
-// }while(anotherGame);
