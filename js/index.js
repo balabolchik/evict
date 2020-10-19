@@ -38,18 +38,23 @@ function hours(){
 };
 
 // -----------------------------------------------------
-
-// setInterval(stopTimer, 8000);
-
-
-setInterval(out,0);
-
-function out (){
-    $('img').fadeTo(1000,0.1);
-    setInterval(inn,0);
+let div = document.querySelector('img');
+let leftOffset =0;
+let topOffset=0;
+function moveHeading (){
+    $('#main-heading').offset({left: Math.abs(leftOffset), top: Math.abs(topOffset)});
+    topOffset++;
+    leftOffset++;
+    let width=div.clientWidth;
+    let heigth = div.clientHeight;
+    let widthString = document.querySelector('h1').clientWidth;
+    let heigthString = document.querySelector('h1').clientHeight;
+    if (leftOffset>(width-widthString-4)){
+        leftOffset=-leftOffset;
+    };
+    if (topOffset>(heigth-heigthString-4)){
+        topOffset=-topOffset
+    };
 };
 
-function inn(){
-    $('img').fadeTo(1000,1);
-    setInterval(out,0)
-};
+setInterval(moveHeading, 10);

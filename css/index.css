@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
+
+h1 {
+    font-family: 'Chilanka', cursive;
+}
+
 *{
-    margin: auto;
+    margin: 0px; 
 }
 
 img {
@@ -7,5 +13,18 @@ img {
 }
 
 h1 {
-    width: 50%;
+    display: inline-block;
+    /* margin: auto; */
+    background-color: lawngreen;
+    padding: 5px;
+    border: 2px solid red;
+    margin: 0px;
+    border-radius: 15px;
+    text-decoration: underline;
+    color: red;
+    text-shadow: 2px 2px 3px black;
+}
+
+body {
+    
 }
