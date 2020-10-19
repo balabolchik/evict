@@ -1,38 +1,55 @@
-let latin=["name"];
-let ukraine=["ім'я"];
-let randomNumber;
+let sec = 0;
+let secDes = 0;
+let min = 0;
+let minDes = 0;
+let hour = 0;
+let hourDes = 0;
 
-let question = confirm(`Запитувати на українській?`);
-let answerIsCorrect;
-if(question){
-    onUkraine();
-}else{
-    onLatin();
+// $("#main-heading").text(`${hourDes}${hour}:${minDes}${min}:${secDes}${sec}`);
+
+let counter = setInterval(hours,1000);
+
+function hours(){
+    sec++;
+    if (sec===10){
+        secDes++;
+        sec=0;
+    };
+    if (secDes===6){
+        min++;
+        secDes=0;
+    };
+    if (min===10){
+        minDes++;
+        min=0;
+    };
+    if(minDes===6){
+        hour++;
+        minDes=0;
+    };
+    if(hour===10||(hour===4 && hourDes===2)){
+        hourDes++;
+        hour=0;
+    };
+    if (hourDes===3){
+        hourDes=0;
+    };
+    $("#main-heading").text(`${hourDes}${hour}:${minDes}${min}:${secDes}${sec}`);
 };
 
-alert('Вітаю, ви вивчили всі слова!');
+// -----------------------------------------------------
+
+// setInterval(stopTimer, 8000);
 
 
-function onUkraine(){
-    while (ukraine.length!==0){
-        randomNumber=Math.floor(Math.random()*ukraine.length);
-        alert(ukraine[randomNumber]);
-        answerIsCorrect=confirm(ukraine[randomNumber]+"\n"+latin[randomNumber]);
-        if (answerIsCorrect){
-            ukraine.splice(randomNumber,1);
-            latin.splice(randomNumber,1);
-        };
-    };
+setInterval(out,0);
+
+function out (){
+    $('img').fadeTo(1000,0.1);
+    setInterval(inn,0);
 };
 
-function onLatin(){
-    while (latin.length!==0){
-        randomNumber=Math.floor(Math.random()*latin.length);
-        alert(latin[randomNumber]);
-        answerIsCorrect=confirm(latin[randomNumber]+"\n"+ukraine[randomNumber]);
-        if(answerIsCorrect){
-            ukraine.splice(randomNumber,1);
-            latin.splice(randomNumber,1);
-        };
-    };
+function inn(){
+    $('img').fadeTo(1000,1);
+    setInterval(out,0)
 };
